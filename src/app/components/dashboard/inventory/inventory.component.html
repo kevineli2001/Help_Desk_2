@@ -1,0 +1,113 @@
+<section>
+  <button class="btn-modal" (click)="showModal()">Agregar Items</button>
+</section>
+<app-datatable
+  [path]="pathApi"
+  [pathFilter]="'filter'"
+  [fields]="fields"
+  [theads]="theads"
+  [money]="money"
+  [_blank]="true"
+  [operations]="operations"
+  (showBlank)="openBlank($event)"
+  (prepareToDelete)="deleteInventory($event)"
+  (prepareFormToUpdate)="showUpdate($event)" />
+<app-modal
+  [isVisible]="isVisible"
+  (close)="hideModal($event)">
+  <h1 class="form-action">{{formAction}}</h1>
+  <form class="form-modal" [formGroup]="formGroup">
+    <div>
+      <label for="providerId">Proveedor</label>
+      <select name="providerId" id="providerId" formControlName="providerId" (change)="onInput($event, 'providerId', {}, getInvoices())">
+        <option value="">Seleciona el proveedor</option>
+        <option *ngFor="let provider of providers" [value]="provider.id">{{provider.name}}</option>
+      </select>
+      <sub *ngIf="errors.providerId!== ''" class="error">{{errors.providerId}}</sub>
+    </div>
+    <div>
+      <label for="invoiceId">Factura</label>
+      <select name="invoiceId" id="invoiceId" formControlName="invoiceId" (change)="onInput($event, 'invoiceId')">
+        <option value="">Seleciona la factura</option>
+        <option *ngFor="let invoice of invoices" [value]="invoice.id">{{invoice.code}}</option>
+      </select>
+      <sub *ngIf="errors.invoiceId !== ''" class="error">{{errors.invoiceId}}</sub>
+    </div>
+    <div>
+      <label for="categoryId">Categoría</label>
+      <select name="categoryId" id="categoryId" formControlName="categoryId" (change)="onInput($event, 'categoryId')">
+        <option value="">Seleciona la categoría</option>
+        <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+      </select>
+      <sub *ngIf="errors.categoryId !== ''" class="error">{{errors.categoryId}}</sub>
+    </div>
+    <div>
+      <label for="name">Nombre del item</label>
+      <input id="name" type="text" formControlName="name" (input)="onInput($event, 'name', {max: 60})">
+      <sub *ngIf="errors.name !== ''" class="error">{{errors.name}}</sub>
+    </div>
+    <div>
+      <label for="price">Precio</label>
+      <input id="price" type="number" formControlName="price" (input)="onInput($event, 'price')">
+      <sub *ngIf="errors.price !== ''" class="error">{{errors.price}}</sub>
+    </div>
+    <div>
+      <label for="quantity">Cantidad</label>
+      <input id="quantity" type="number" formControlName="quantity" (input)="onInput($event, 'quantity', {max: 60, spaces: false}, isMinor(imagesType.images))">
+      <sub *ngIf="errors.quantity !== ''" class="error">{{errors.quantity}}</sub>
+    </div>
+    <div>
+      <label class="label-file" for="item-images">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        <p>Cargar fotos</p>
+      </label>
+      <input #inputImages class="hidden" id="item-images" type="file" (input)="showImages($event, imagesType.images)">
+      <sub *ngIf="errors.images !== ''" class="error">{{errors.images}}</sub>
+      <h1 *ngIf="images.length > 0">Fotos del item</h1>
+      <div class="preview" *ngIf="images.length > 0">
+        <div *ngFor="let img of images; let i = index" class="card-img">
+          <span (click)="removeImage(i, imagesType.images)">&times;</span>
+          <img [src]="img.src" [alt]="img.name">
+          <p class="data-img">{{img.name}}</p>
+        </div>
+      </div>
+      <aside class="checkbox">
+        <label for="damagedReport">¿Deseas reportar daños?</label>
+        <input #checkbox type="checkbox" name="damagedReport" id="damagedReport" (click)="checkDamaged($event)">
+      </aside>
+    </div>
+    <h2 *ngIf="damagedRequired">Información adicional</h2>
+    <h4 *ngIf="damagedRequired">Reportar daños</h4>
+    <div *ngIf="damagedRequired">
+      <label for="damaged">Cantidad</label>
+      <input id="damaged" type="number" formControlName="damaged" (input)="onInput($event, 'damaged', {max: 60, spaces: false}, isMinor(imagesType.damaged))">
+      <sub *ngIf="errors.damaged !== ''" class="error">{{errors.damaged}}</sub>
+    </div>
+    <div *ngIf="damagedRequired">
+      <label for="description">Descripción</label>
+      <textarea id="description" type="number" formControlName="description" (input)="onInput($event, 'description', {max: 250})"></textarea>
+      <sub *ngIf="errors.description !== ''" class="error">{{errors.description}}</sub>
+    </div>
+    <div *ngIf="damagedRequired">
+      <label class="label-file" for="item-damged-images">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        <p>Cargar fotos</p>
+      </label>
+      <input #inputDamaged class="hidden" id="item-damged-images" type="file" accept="image/*" multiple (input)="showImages($event, imagesType.damaged)">
+      <sub *ngIf="errors.damagedImages !== ''" class="error">{{errors.damagedImages}}</sub>
+      <h1 *ngIf="damagedImages.length > 0">Fotos de los daños</h1>
+      <div class="preview" *ngIf="damagedImages.length > 0">
+        <div *ngFor="let img of damagedImages; let i = index" class="card-img">
+          <span (click)="removeImage(i, imagesType.damaged)">&times;</span>
+          <img [src]="img.src" [alt]="img.name">
+          <p class="data-img">{{img.name}}</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button *ngIf="showBtns(formActions.UPDATE)" (click)="updateInventory()">Actualizar</button>
+      <button *ngIf="showBtns(formActions.REGISTER)" (click)="saveInventory()">Guardar</button>
+      <sub *ngIf="errors.request !== ''" class="error">{{errors.request}}</sub>
+    </div>
+  </form>
+</app-modal>

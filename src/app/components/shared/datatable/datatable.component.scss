@@ -1,0 +1,241 @@
+
+.main-paginator{
+  width: 100%;
+  min-height: fit-content;
+  border: 1px solid gray;
+  background: white;
+  padding: 1rem;
+}
+
+.section-container{
+  display: flex;
+  width: 100%;
+  min-height: fit-content;
+  justify-content: center;
+  background: white;
+}
+
+.container-datatable {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  background: rgb(255, 255, 255);
+}
+
+.section-title {
+  width: 100%;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: white;
+}
+
+.table-filters {
+  display: flex;
+  padding: 1rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.per-page-container, .search-container {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.per-page-container > select,
+.search-container > input{
+  border: 1px solid gray;
+}
+
+.search-container {
+  flex-wrap: wrap;
+}
+
+#per-page, #search {
+  padding: 5px;
+  outline: none;
+  background: white;
+}
+
+.table-registers {
+  width: 100%;
+  background: rgb(255, 255, 255);
+  border-collapse: collapse;
+  height: fit-content;
+  border-top: 1px solid gray;
+}
+
+.table-registers thead {
+  background: white;
+  color: black;
+}
+
+.table-registers th {
+  padding: 1rem;
+}
+
+.table-registers td {
+  padding: .8rem;
+  text-align: center;
+  min-width: 10rem;
+}
+
+.table-registers tbody tr:nth-child(odd) {
+  background: rgb(237, 237, 237);
+}
+
+.table-registers tbody tr:nth-child(even){
+  background: white
+}
+
+.table-registers tbody tr:hover{
+  background: rgb(186, 252, 223);
+ }
+
+.table-btns {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.table-btns button {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.table-btn-edit {
+  background: transparent;
+  color: rgb(0, 119, 255);
+  border: 1px solid rgb(0, 119, 255);
+}
+
+.table-btn-delete {
+  border: 1px solid red;
+  background: transparent;
+  color: red
+}
+
+.not-results {
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+}
+
+.th-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  background: rgb(255, 255, 255);
+  color: black;
+}
+
+.column-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+}
+
+.table-registers tbody tr:hover,
+.table-registers tbody tr:hover .column-sticky {
+  background: rgb(186, 252, 223);
+ }
+
+.sticky-even {
+  background: white
+ }
+
+ .sticky-odd {
+  background: rgb(237, 237, 237);
+ }
+
+ .paginator-btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+ }
+
+ .paginator-btn {
+  padding: 10px;
+  min-width: 2.5rem;
+  min-height: 2rem;
+  font-size: 1rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: black
+ }
+
+ .paginator-btns .no-selected:hover {
+  background-color: black;
+  color: white;
+ }
+
+.select-page-btn {
+  background: rgb(238, 238, 238);
+  border: 1px solid rgb(173, 173, 173);
+}
+
+.bottom-pag-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 1rem;
+  gap: 1rem
+}
+
+.bottom-pag-container > div {
+  flex-grow: 1;
+}
+
+.options-block {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  height: fit-content;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.img-row {
+  width: 5rem;
+}
+
+ @media screen and (max-width: 550px) {
+  .table-filters {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-title {
+    display: flex;
+    justify-content: center;
+  }
+
+  .paginator-text-bottom {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .paginator-btns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+   }
+ }

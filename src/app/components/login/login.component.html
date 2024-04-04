@@ -1,0 +1,19 @@
+<main>
+  <section class="container">
+    <form [formGroup]="formGroup">
+      <img src="../../../assets/img/shield.png" alt="">
+      <h1>{{sysName}}</h1>
+      <div class="input-block">
+        <input type="text" formControlName="username" name="username" placeholder="Usuario" (input)="onChange($event, 'username', {max: 40, spaces: false})">
+        <sub *ngIf="errors.username !== ''" class="error">{{errors.username}}</sub>
+      </div>
+      <div class="input-block">
+        <input type="password" formControlName="password" name="password" placeholder="Contraseña" (input)="onChange($event, 'password', {max: 40, spaces: false})">
+        <sub *ngIf="errors.password !== ''" class="error">{{errors.password}}</sub>
+      </div>
+      <input type="submit" value="Ingresar" (click)="sendData()">
+      <sub *ngIf="errors.request !== ''" class="error">{{errors.request}}</sub>
+    </form>
+  </section>
+</main>
+

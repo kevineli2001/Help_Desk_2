@@ -1,0 +1,70 @@
+<div class="global-view">
+  <div class="section-max">
+    <div class="btn-container">
+      <button (click)="backTo()"><i class="fa-solid fa-arrow-left"></i><span>Volver</span></button>
+    </div>
+    <section *ngIf="images.length > 0">
+      <h1 class="title-images">Datos</h1>
+      <fieldset *ngIf="inventory">
+        <div>
+          <h4>Factura</h4>
+          <p>{{inventory['Invoice.code']}}</p>
+        </div>
+        <div>
+          <h4>Proveedor</h4>
+          <p>{{inventory['Invoice.Provider.name'] | titlecase}}</p>
+        </div>
+        <div>
+          <h4>Nombre</h4>
+          <p>{{inventory.name}}</p>
+        </div>
+        <div>
+          <h4>Categoría</h4>
+          <p>{{inventory['Category.name'] | titlecase}}</p>
+        </div>
+        <div>
+          <h4>Precio</h4>
+          <p>{{inventory.price | currency: 'USD': 'symbol':'1.2-2'}}</p>
+        </div>
+        <div>
+          <h4>Cantidad ingresada</h4>
+          <p>{{inventory.quantity}}</p>
+        </div>
+        <div>
+          <h4>Total</h4>
+          <p>{{(inventory.price * inventory.quantity) | currency:'USD':'symbol':'1.2-2'}}</p>
+        </div>
+        <div>
+          <h4>En Buen Estado</h4>
+          <p>{{inventory.quantity - inventory.damaged}}</p>
+        </div>
+        <div>
+          <h4>En Mal Estado</h4>
+          <p>{{inventory.damaged}}</p>
+        </div>
+        <div>
+          <h4>Descripción</h4>
+          <p>{{inventory.description}}</p>
+        </div>
+      </fieldset>
+    </section>
+    <div class="container">
+      <fieldset class="images">
+        <h1>Fotos del Item</h1>
+        <div class="container">
+          <div *ngFor="let img of images" class="img-item">
+            <img [src]="pathImgs+img" [alt]="img">
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="images" *ngIf="imgDamaged.length > 0">
+        <h1>Daños en item</h1>
+        <div class="container">
+          <div *ngFor="let img of imgDamaged" class="img-item">
+            <img [src]="pathImgs+img" [alt]="img">
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,165 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  width: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+:root {
+  --green-light: rgb(21, 216, 118);
+}
+
+.btn-modal {
+  border: none;
+  padding: .8rem;
+  background: var(--green-light);
+  color: white;
+  font-size: 1rem;
+  width: 10rem;
+  cursor: pointer;
+}
+
+.error {
+  color: red
+}
+
+/* MODAL BASE*/
+.modal {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.671);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  padding-top: 3.5rem;
+
+  .modal-content {
+    width: 100%;
+    max-width: 700px;
+    position: relative;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background: white;
+  }
+
+  .close {
+    font-size: 3rem;
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    color: rgb(204, 204, 204);
+    cursor: pointer;
+  }
+}
+
+/* FORM BASE */
+.form-action {
+  margin-bottom: 1rem;
+  background: rgb(99, 99, 99);
+  color: white;
+  padding: .8rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  text-align: center;
+}
+
+.form-modal {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+  height: fit-content;
+
+  div {
+    flex: 1;
+    width: 100%;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    .checkbox {
+      display: flex;
+      gap: 10px;
+      label {
+        cursor: pointer;
+      }
+      input {
+        width: 1rem;
+        height: 1rem;
+        cursor: pointer;
+      }
+    }
+
+    input, select, textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: .8rem;
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border: 1px solid var(--green-light);
+    }
+
+    textarea {
+      min-height: 6rem;
+      resize: none;
+    }
+
+    button {
+      padding: 1rem;
+      background: var(--green-light);
+      color: white;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .label-file {
+      i {
+        font-size: 2rem;
+        color: var(--green-light);
+      }
+      color: var(--green-light);
+      font-weight: bold;
+      width: 100%;
+      border: 1px solid gray;
+      cursor: pointer;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+
+@media screen and (max-width: 500px) {
+  .btn-modal {
+    width: 100%;
+  }
+}

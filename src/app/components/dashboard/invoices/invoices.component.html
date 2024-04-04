@@ -1,0 +1,49 @@
+<section>
+  <button class="btn-modal" (click)="showModal()">Agregar</button>
+</section>
+<app-datatable
+  [path]="pathApi"
+  [pathFilter]="'filter'"
+  [fields]="fields"
+  [theads]="theads"
+  [times]="times"
+  (prepareToDelete)="deleteInvoice($event)"
+  (prepareFormToUpdate)="showUpdate($event)"
+></app-datatable>
+<app-modal
+  [isVisible]="isVisible"
+  (close)="hideModal($event)">
+  <h1 class="form-action">{{formAction}}</h1>
+  <form class="form-modal" [formGroup]="formGroup">
+    <div>
+      <label for="code">Código</label>
+      <input id="code" type="text" formControlName="code" (input)="onInput($event, 'code', {max: 64, spaces: false})">
+      <sub *ngIf="errors.code !== ''" class="error">{{errors.code}}</sub>
+    </div>
+    <div>
+      <label for="provider">Proveedor</label>
+      <select name="providerId" id="provider" formControlName="providerId" (change)="onInput($event, 'providerId')">
+        <option value="">Selecciona proveedeor</option>
+        <option *ngFor="let provider of providers" [value]="provider.id">{{provider.name}}</option>
+      </select>
+      <sub *ngIf="errors.provider !== ''" class="error">{{errors.provider}}</sub>
+    </div>
+    <div>
+      <label for="date">Fecha</label>
+      <input id="date" type="date" formControlName="date" (input)="onInput($event, 'date')">
+      <sub *ngIf="errors.date!== ''" class="error">{{errors.date}}</sub>
+    </div>
+    <div>
+      <label for="observation">Observaciones</label>
+      <textarea id="observation" type="text" formControlName="observation" (input)="onInput($event, 'observation', {max: 250})"></textarea>
+      <sub *ngIf="errors.observation !== ''" class="error">{{errors.observation}}</sub>
+    </div>
+    <div>
+      <button *ngIf="showBtns(btns.update)" (click)="updateInvoice()">Actualizar</button>
+      <button *ngIf="showBtns(btns.add)" (click)="saveInvoice()">Guardar</button>
+      <sub *ngIf="errors.request !== ''" class="error">{{errors.request}}</sub>
+    </div>
+  </form>
+</app-modal>
+
+

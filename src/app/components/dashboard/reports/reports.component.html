@@ -1,0 +1,69 @@
+<form [formGroup]="formGroup">
+  <div>
+    <label for="providerId">Proveedor</label>
+    <select name="providerId" id="providerId" formControlName="providerId" (change)="onInput($event, 'providerId', {}, getInvoices())">
+      <option value="">Seleciona el proveedor</option>
+      <option *ngFor="let provider of providers" [value]="provider.id">{{provider.name}}</option>
+    </select>
+    <sub *ngIf="errors.providerId!== ''" class="error">{{errors.providerId}}</sub>
+  </div>
+  <div>
+    <label for="invoiceId">Factura</label>
+    <select name="invoiceId" id="invoiceId" formControlName="invoiceId" (change)="onInput($event, 'invoiceId')">
+      <option value="">Seleciona la factura</option>
+      <option *ngFor="let invoice of invoices" [value]="invoice.id">{{invoice.code}}</option>
+    </select>
+    <sub *ngIf="errors.invoiceId !== ''" class="error">{{errors.invoiceId}}</sub>
+  </div>
+  <div>
+    <label for="categoryId">Categoría</label>
+    <select name="categoryId" id="categoryId" formControlName="categoryId" (change)="onInput($event, 'categoryId')">
+      <option value="">Seleciona la categoría</option>
+      <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+    </select>
+    <sub *ngIf="errors.categoryId !== ''" class="error">{{errors.categoryId}}</sub>
+  </div>
+  <div>
+    <label for="date">Fecha</label>
+    <input type="date" name="date" id="date" formControlName="date" (change)="onInput($event, 'date')">
+    <sub *ngIf="errors.categoryId !== ''" class="error">{{errors.categoryId}}</sub>
+  </div>
+  <div>
+    <label for="search" class="last">Buscar</label>
+    <button (click)="getData()"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <sub *ngIf="errors.categoryId !== ''" class="error">{{errors.categoryId}}</sub>
+  </div>
+</form>
+<section class="section-container">
+  <div class="container-datatable">
+    <div *ngIf="items.length > 0" class="options-block">
+      <button class="btn-pdf" (click)="createPDF()">
+        <i class="fa-regular fa-file-pdf"></i><span>Generar</span>
+      </button>
+    </div>
+    <h1 *ngIf="items.length > 0">Items encontrados: {{items.length}}</h1>
+    <h3 *ngIf="items.length > 0">Total: {{total | currency: 'USD': 'symbol':'1.2-2'}}</h3>
+   <main class="main-paginator">
+     <div class="not-results" *ngIf="items.length === 0">No hay resultados</div>
+     <div class="table-container">
+       <table #table class="table-registers" *ngIf="items.length > 0">
+         <thead>
+           <tr>
+             <th *ngFor="let thead of theads; let i = index;">{{thead}}</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor="let item of items; let i = index;">
+             <!-- <td *ngFor="let field of fields" class="{{field === 'index' ? (((i+1)%2) === 0 ? 'column-sticky sticky-even':'column-sticky sticky-odd'): ''}}">{{item[field]}}</td> -->
+             <td *ngFor="let field of fields">
+              {{images.includes(field) ? '' : money.includes(field) ? (item[field] | currency:'USD':'symbol':'1.2-2'): times.includes(field) ? item[field].split('T')[0]: item[field]}}
+              </td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+   </main>
+  </div>
+</section>
+<button></button>
+

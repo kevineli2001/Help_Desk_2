@@ -1,0 +1,54 @@
+<section>
+  <button class="btn-modal" (click)="showModal()">Agregar</button>
+</section>
+<app-datatable
+  [path]="pathApi"
+  [pathFilter]="'filter'"
+  [fields]="fields"
+  [theads]="theads"
+  (prepareToDelete)="deleteUser($event)"
+  (prepareFormToUpdate)="showUpdate($event)"
+></app-datatable>
+<app-modal
+  [isVisible]="isVisible"
+  (close)="hideModal($event)">
+  <h1 class="form-action">{{formAction}}</h1>
+  <form class="form-modal" [formGroup]="formGroup">
+    <div>
+      <label for="name">Nombre</label>
+      <input id="name" type="text" formControlName="name" (input)="onInput($event, 'name', {max: 60})">
+      <sub *ngIf="errors.name !== ''" class="error">{{errors.name}}</sub>
+    </div>
+    <div>
+      <label for="lastname">Apellido</label>
+      <input id="lastname" type="text" formControlName="lastname" (input)="onInput($event, 'lastname', {max: 60})">
+      <sub *ngIf="errors.lastname !== ''" class="error">{{errors.lastname}}</sub>
+    </div>
+    <div>
+      <label for="username">Usuario</label>
+      <input id="username" type="text" formControlName="username" (input)="onInput($event, 'username', {max: 60, spaces: false})">
+      <sub *ngIf="errors.username !== ''" class="error">{{errors.username}}</sub>
+    </div>
+    <div>
+      <label for="statusId">Estado</label>
+      <select id="statusId" type="text" formControlName="statusId" (change)="onInput($event, 'statusId')">
+        <option *ngFor="let status of statuses" [value]="status.id">{{status.name}}</option>
+      </select>
+      <sub *ngIf="errors.status!== ''" class="error">{{errors.status}}</sub>
+      <aside class="checkbox" *ngIf="showBtns(btns.update)">
+        <label for="passCheck">¿Deseas actualizar contraseña?</label>
+        <input #checkbox type="checkbox" name="passCheck" id="passCheck" (click)="checkPassword($event)">
+      </aside>
+    </div>
+    <div *ngIf="passwordRequired || showBtns(btns.add)">
+      <label for="password">Contraseña</label>
+      <input id="password" type="password" formControlName="password" (input)="onInput($event, 'password', {max: 60, spaces: false})">
+      <sub *ngIf="errors.password!== ''" class="error">{{errors.password}}</sub>
+    </div>
+    <div>
+      <button *ngIf="showBtns(btns.update)" (click)="updateUser()">Actualizar</button>
+      <button *ngIf="showBtns(btns.add)" (click)="saveUser()">Guardar</button>
+      <sub *ngIf="errors.request !== ''" class="error">{{errors.request}}</sub>
+    </div>
+  </form>
+</app-modal>

@@ -1,0 +1,48 @@
+.preview {
+  width: 100%;
+  gap: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 1rem;
+  .card-img {
+    background: rgb(216, 241, 255);
+    color:rgb(22, 31, 85);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    height: 4rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    span {
+      position: absolute;
+      top: 50%;
+      bottom: 50%;
+      right: 0;
+      transform: translate(-50%, -50%);
+      width: 2rem;
+      height: 2rem;
+      text-align: center;
+      vertical-align: middle;
+      background: rgb(255, 0, 0);
+      border: 1px solid gray;
+      color: white;
+      cursor: pointer;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    img {
+      width: 4rem;
+      aspect-ratio: 1/1;
+    }
+    .data-img {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+  }
+}
+

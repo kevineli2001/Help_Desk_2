@@ -1,0 +1,20 @@
+<nav>
+  <section>
+    <div class="bussines">{{systemName | titlecase}}</div>
+    <i class="fa fa-bars" id="btn-bars" (click)="toggle($event)"></i>
+  </section>
+  <ul class="nav-hidden">
+    <li *ngFor="let route of routes" (click)="redirectTo(route.path, route.name)">{{route.name}}</li>
+  </ul>
+</nav>
+<section id="menu-modal" class="menu" [class.hidden]="!isVisible" (click)="toggle($event)">
+  <ul>
+    <div>
+      <sub>{{userData.roleName}}</sub>
+      <p>{{userData.name + " " + userData.lastname | titlecase}}</p>
+    </div>
+    <li [attr.btn-menu]="true" *ngFor="let route of routes" (click)="redirectTo(route.path, route.name)">
+      <i class="fa-solid {{route.icon}}"></i>
+      <span>{{route.name}}</span></li>
+  </ul>
+</section>

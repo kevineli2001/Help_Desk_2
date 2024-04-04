@@ -1,0 +1,49 @@
+<section>
+  <button class="btn-modal" (click)="showModal()">Agregar</button>
+</section>
+<app-datatable
+  [path]="pathApi"
+  [pathFilter]="'filter'"
+  [fields]="fields"
+  [theads]="theads"
+  (prepareToDelete)="deleteUser($event)"
+  (prepareFormToUpdate)="showUpdate($event)"
+></app-datatable>
+<app-modal
+  [isVisible]="isVisible"
+  (close)="hideModal($event)">
+  <h1 class="form-action">{{formAction}}</h1>
+  <form class="form-modal" [formGroup]="formGroup">
+    <div>
+      <label for="ruc">R.U.C</label>
+      <input id="ruc" type="text" formControlName="ruc" (input)="onInput($event, 'ruc', {max: 14})">
+      <sub *ngIf="errors.ruc !== ''" class="error">{{errors.ruc}}</sub>
+    </div>
+    <div>
+      <label for="name">Nombre</label>
+      <input id="name" type="text" formControlName="name" (input)="onInput($event, 'name', {max: 150})">
+      <sub *ngIf="errors.name !== ''" class="error">{{errors.name}}</sub>
+    </div>
+    <div>
+      <label for="telephone">Teléfono</label>
+      <input id="telephone" type="text" formControlName="telephone" (input)="onInput($event, 'telephone', {max: 14, spaces: false})">
+      <sub *ngIf="errors.telephone !== ''" class="error">{{errors.telephone}}</sub>
+    </div>
+    <div>
+      <label for="address">Dirección</label>
+      <input id="address" type="text" formControlName="address" (input)="onInput($event, 'address', {max: 150})">
+      <sub *ngIf="errors.address !== ''" class="error">{{errors.address}}</sub>
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input id="email" type="text" formControlName="email" (input)="onInput($event, 'email', {max: 150, spaces: false})">
+      <sub *ngIf="errors.email!== ''" class="error">{{errors.email}}</sub>
+    </div>
+    <div>
+      <button *ngIf="showBtns(btns.update)" (click)="updateUser()">Actualizar</button>
+      <button *ngIf="showBtns(btns.add)" (click)="saveUser()">Guardar</button>
+      <sub *ngIf="errors.request !== ''" class="error">{{errors.request}}</sub>
+    </div>
+  </form>
+</app-modal>
+

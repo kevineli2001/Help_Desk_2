@@ -1,0 +1,63 @@
+<section class="section-container">
+  <div class="container-datatable">
+    <h1 class="section-title">{{sectionName}}</h1>
+    <!-- <div class="options-block">
+      <button class="btn_add" (click)="openFormToAdd()">Agregar</button>
+      <button class="btn_excel" (click)="createExcel()">
+        <i class="fa-regular fa-file-excel"></i><span>Excel</span>
+      </button>
+    </div> -->
+   <main class="main-paginator">
+     <div class="table-filters">
+       <form class="per-page-container" [formGroup]="perPage">
+         <label for="per-page">Mostrar</label>
+         <select id="per-page" formControlName="number" (change)="detectChange($event)">
+           <option *ngFor="let opt of table.perPages; let i = index" value="{{opt}}">{{opt}}</option>
+         </select>
+         <label for="per-page">entradas</label>
+       </form>
+       <form class="search-container" [formGroup]="search">
+         <label for="search">Buscar</label>
+         <input id= "search" type="search" name="q" autocomplete="off" formControlName="filter" (input)="onInput($event)">
+       </form>
+     </div>
+     <div class="not-results" *ngIf="items.length === 0">No hay resultados</div>
+     <div class="table-container">
+       <table class="table-registers" *ngIf="items.length > 0">
+         <thead>
+           <tr>
+             <th *ngFor="let thead of theads; let i = index;">{{thead}}</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor="let item of items; let i = index;">
+             <!-- <td *ngFor="let field of fields" class="{{field === 'index' ? (((i+1)%2) === 0 ? 'column-sticky sticky-even':'column-sticky sticky-odd'): ''}}">{{item[field]}}</td> -->
+             <td *ngFor="let field of fields">
+              {{images.includes(field) ? '' : money.includes(field) ? (item[field] | currency:'USD':'symbol':'1.2-2'): times.includes(field) ? getDateFormat(item[field]): item[field]}}
+                <img (click)="openImage(pathImages + item[field])" class="img-row" *ngIf="images.includes(field)" src="{{pathImages + item[field]}}" alt="imagen de silla">
+              </td>
+              <td>
+                <div class="table-btns">
+                  <button *ngIf="_blank" class="table-btn-edit" (click)="openBlank(item)"><i class="fa-solid fa-eye"></i></button>
+                  <button class="table-btn-edit" (click)="openFormToUpdate(item)"><i class="fa-solid fa-pen-to-square"></i></button>
+                  <button class="table-btn-delete" (click)="askToDelete(item)"><i class="fa-solid fa-trash"></i></button>
+                </div>
+             </td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+     <div class="bottom-pag-container">
+       <div class="paginator-text-bottom" *ngIf="items.length > 0">Filas {{items[0]['index']}} a {{items[items.length-1]['index']}} de {{table.totalRows}} registros</div>
+       <div class="paginator-btns" *ngIf="items.length !== 0">
+         <button class="paginator-btn no-selected" (click)="previousPage()">Anterior</button>
+         <button
+           *ngFor="let btn of table.pages"
+           class="paginator-btn {{btn === table.currentPage ? 'select-page-btn':'no-selected'}}"
+           (click)="changePage(btn)">{{btn}}</button>
+         <button class="paginator-btn no-selected" (click)="nextPage()">Siguiente</button>
+       </div>
+     </div>
+   </main>
+  </div>
+</section>

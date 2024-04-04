@@ -1,0 +1,29 @@
+<section>
+  <button class="btn-modal" (click)="showModal()">Agregar</button>
+</section>
+<app-datatable
+  [path]="pathApi"
+  [pathFilter]="'filter'"
+  [fields]="fields"
+  [theads]="theads"
+  (prepareToDelete)="deleteCategory($event)"
+  (prepareFormToUpdate)="showUpdate($event)"
+></app-datatable>
+<app-modal
+  [isVisible]="isVisible"
+  (close)="hideModal($event)">
+  <h1 class="form-action">{{formAction}}</h1>
+  <form class="form-modal" [formGroup]="formGroup">
+    <div>
+      <label for="name">Categoría</label>
+      <input id="name" type="text" formControlName="name" (input)="onInput($event, 'name', {max: 60})">
+      <sub *ngIf="errors.name !== ''" class="error">{{errors.name}}</sub>
+    </div>
+    <div>
+      <button *ngIf="showBtns(btns.update)" (click)="updateCategory()">Actualizar</button>
+      <button *ngIf="showBtns(btns.add)" (click)="saveCategory()">Guardar</button>
+      <sub *ngIf="errors.request !== ''" class="error">{{errors.request}}</sub>
+    </div>
+  </form>
+</app-modal>
+
