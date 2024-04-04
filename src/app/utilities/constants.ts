@@ -9,7 +9,7 @@ export const PACKAGE_STATUS = {
   DISABLED: 2
 }
 const URI_TEST = 'http://localhost:4000/api/'
-const URI = 'https://render-test-3ut5.onrender.com/api'
+const URI = 'https://help-desk-vgvf.onrender.com/api'
 export const SERVER = URI
 
 export const ROUTES_API = {
